@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pappu Jewellers GST Invoice</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>GST Billing Web App</h2>
+
+<div class="form">
+<input id="custName" placeholder="Customer Name">
+<input id="custAddress" placeholder="Customer Address">
+<input id="billDate" type="date">
+<input id="custMobile" placeholder="Customer Mobile">
+</div>
+
+<hr>
+
+<div class="form">
+<input id="desc" placeholder="Description">
+<input id="weight" placeholder="Weight">
+<input id="rate" placeholder="Rate">
+<input id="making" type="number" placeholder="Making Charges">
+<button onclick="addItem()">Add Item</button>
+</div>
+
+<!-- <input id="desc" placeholder="Description">
+
+<input id="weight" type="number" step="0.001" placeholder="Weight (gm)">
+
+<input id="rate" type="number" placeholder="Rate per gm">
+
+<input id="making" type="number" placeholder="Making Charges">
+
+<button onclick="addItem()">Add Item</button> -->
+
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Weight</th>
+<th>Rate</th>
+<th>Making</th>
+<th>Value</th>
+<th>CGST 1.5%</th>
+<th>SGST 1.5%</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody id="billBody"></tbody>
+</table>
+
+<!-- <thead>
+<tr>
+    <th>Description</th>
+    <th>Weight</th>
+    <th>Rate</th>
+    <th>Making</th>
+    <th>Value</th>
+    <th>CGST 1.5%</th>
+    <th>SGST 1.5%</th>
+    <th>Total</th>
+</tr>
+</thead> -->
+
+<h3 id="grandTotal">Total : ₹0</h3>
+
+<hr>
+
+<h3>Upload Item Photos</h3>
+<input type="file" id="itemImage1" accept="image/*">
+<input type="file" id="itemImage2" accept="image/*">
+
+<br><br>
+
+<button class="pdfBtn" onclick="generatePDF()">Generate GST PDF</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+<!-- QR Generator -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
