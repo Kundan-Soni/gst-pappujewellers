@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pappu Jewellers - GST Invoice</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <h1>Pappu Jewellers</h1>
+  <p>GST Billing</p>
+  <small id="mode"></small>
+</header>
+
+<main class="layout">
+
+  <!-- ============ LEFT: INPUTS ============ -->
+  <div class="col">
+
+    <section class="card">
+      <h2>Customer</h2>
+      <div class="grid2">
+        <label>Name<input id="custName" placeholder="Customer name" autocomplete="off"></label>
+        <label>Mobile<input id="custMobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit mobile"></label>
+        <label>Address<input id="custAddress" placeholder="Customer address" autocomplete="off"></label>
+        <label>Date<input id="billDate" type="date"></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Add Item</h2>
+      <div class="grid2">
+        <label class="span2">Description<input id="desc" placeholder="e.g. Gold Ring 22K" autocomplete="off"></label>
+        <label>Weight (g)<input id="weight" type="number" step="0.001" min="0" inputmode="decimal" placeholder="1.100"></label>
+        <label>Rate (&#8377; per g)<input id="rate" type="number" step="0.01" min="0" inputmode="decimal" placeholder="12000"></label>
+        <label>Making Charges (%)<input id="makingPct" type="number" step="0.01" min="0" max="100" inputmode="decimal" placeholder="10.5"></label>
+        <div class="preview" id="itemPreview" aria-live="polite">
+          <div><span>Amount</span><b id="pvAmount">0.00</b></div>
+          <div><span>Making</span><b id="pvMaking">0.00</b></div>
+          <div class="pvTotal"><span>Item Total</span><b id="pvTotal">0.00</b></div>
+        </div>
+      </div>
+      <button id="addBtn" class="btn primary" type="button">+ Add Item</button>
+    </section>
+
+    <section class="card">
+      <h2>Payment</h2>
+      <label>Amount Received (&#8377;)
+        <input id="received" type="number" step="0.01" min="0" inputmode="decimal" placeholder="0">
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Item Photos <small>(optional)</small></h2>
+      <div class="grid2">
+        <label>Photo 1<input type="file" id="itemImage1" accept="image/*"></label>
+        <label>Photo 2<input type="file" id="itemImage2" accept="image/*"></label>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ RIGHT: BILL ============ -->
+  <div class="col">
+    <section class="card">
+      <h2>Bill</h2>
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th class="l">Description</th><th>Weight (g)</th><th>Rate</th>
+              <th>Making %</th><th>Total</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="billBody"></tbody>
+        </table>
+      </div>
+      <p id="emptyMsg" class="empty">No items yet. Add an item to start the bill.</p>
+
+      <table class="summary">
+        <tr class="bold"><td>Total Amount</td><td id="sTaxable">0.00</td></tr>
+        <tr><td>CGST (1.5%)</td><td id="sCgst">0.00</td></tr>
+        <tr><td>SGST (1.5%)</td><td id="sSgst">0.00</td></tr>
+        <tr><td>Round Off</td><td id="sRound">+0.00</td></tr>
+        <tr class="grand"><td>Grand Total</td><td id="sGrand">0.00</td></tr>
+        <tr><td>Amount Received</td><td id="sReceived">0.00</td></tr>
+        <tr class="due"><td id="sDueLabel">Remaining Amount</td><td id="sDue">0.00</td></tr>
+      </table>
+
+      <div class="actions">
+        <button id="pdfBtn" class="btn dark" type="button">Generate GST PDF</button>
+        <button id="resetBtn" class="btn ghost" type="button">New Bill</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- PDF library (needs internet the first time; cached by the browser afterwards) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+<script src="calc.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
