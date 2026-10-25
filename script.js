@@ -273,6 +273,8 @@ function buildPDF(result, images) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
   doc.text("TAX INVOICE", PAGE_W / 2, y, { align: "center" });
+  const billNo = $("billNo").value.trim();
+  if (billNo) doc.text("Bill No : " + billNo, PAGE_W - M, y, { align: "right" });
   y += 8;
 
   /* ---- customer ---- */
@@ -386,7 +388,8 @@ function buildPDF(result, images) {
 
   /* ---- save ---- */
   const safe = ($("custName").value.trim() || "Customer").replace(/[^\w\-]+/g, "_");
-  doc.save(`Invoice_${safe}_${$("billDate").value || todayISO()}.pdf`);
+  const safeNo = billNo.replace(/[^\w\-]+/g, "_");
+  doc.save(`Invoice_${safeNo ? safeNo + "_" : ""}${safe}_${$("billDate").value || todayISO()}.pdf`);
 }
 
 /* --------------------------------- reset --------------------------------- */
