@@ -55,10 +55,11 @@ async function calculate(items, received) {
       });
     } catch (e) { res = null; }                       // server not reachable -> fallback below
     if (res) {
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Server error");
-      setMode(true);
-      return data;
+      const data = await res.json().catch(() => null);
+      if (res.ok && data && data.bill) { setMode(true); return data; }          // our backend answered
+      if (res.status === 400 && data && data.error) throw new Error(data.error); // our backend rejected the input
+      /* anything else (404 / 501 / HTML page) = the page is served by something that is
+         NOT server.js (Live Server, python http.server ...) -> use the browser fallback */
     }
   }
   setMode(false);
@@ -68,7 +69,7 @@ async function calculate(items, received) {
 
 function setMode(server) {
   const el = $("mode");
-  el.textContent = server ? "\u25CF Calculated on server" : "\u25CF Offline mode - calculated in browser (run: node server.js)";
+  el.textContent = server ? "\u25CF Calculated on server" : "\u25CF Backend not running - calculated in browser (start it with: node server.js)";
   el.className = server ? "" : "offline";
 }
 
