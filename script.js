@@ -372,7 +372,7 @@ function buildPDF(result, images) {
   }
 
   /* ---- terms (left) + UPI QR (right) ---- */
-  y = ensureSpace(y, 48);
+  y = ensureSpace(y, 76);   // terms + QR + signature block must stay together on one page
   doc.setFontSize(9);
   doc.setFont("helvetica", "bold");   doc.text("Terms & Conditions:", M, y);
   doc.setFont("helvetica", "normal");
@@ -385,6 +385,16 @@ function buildPDF(result, images) {
   doc.addImage(images.upi.data, "PNG", 170 - qw / 2, y - 4, qw, qh);
   doc.setFontSize(8);
   doc.text("Scan to pay", 170, y + 40, { align: "center" });
+
+  /* ---- signature / stamp (empty space above the line is for the stamp) ---- */
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "bold");
+  doc.text("For Pappu Jewellers", 163, y + 48, { align: "center" });
+  doc.setDrawColor(0);
+  doc.setLineWidth(0.3);
+  doc.line(130, y + 66, 196, y + 66);
+  doc.setFont("helvetica", "normal");
+  doc.text("Authorised Signatory / Stamp", 163, y + 71, { align: "center" });
 
   /* ---- save ---- */
   const safe = ($("custName").value.trim() || "Customer").replace(/[^\w\-]+/g, "_");
